@@ -30,6 +30,11 @@ public class GrammarGuide {
         this.idgrammarguideline = id ;
         this.grammarimage = grammarimage ;
     }
+    
+    // co 1 ham khoi tao khong co tham so 
+    public GrammarGuide(){
+        
+    }
     public int getIdgrammarguideline() {
         return idgrammarguideline;
     }

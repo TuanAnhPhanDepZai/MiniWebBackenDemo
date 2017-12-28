@@ -141,6 +141,7 @@
                                                                 Tên bài hướng dẫn
                                                             </label>
                                                         </th>
+
                                                         <th class="center">
                                                             <label class="pos-rel">
                                                                 Hình ảnh bài hướng dẫn
@@ -150,6 +151,11 @@
                                                         <th class="center">
                                                             <label class="pos-rel">
                                                                 Cập nhật bài hướng dẫn
+                                                            </label>
+                                                        </th>
+                                                        <th class="center">
+                                                            <label class="pos-rel">
+                                                                Cap nhat lai anh 
                                                             </label>
                                                         </th>
                                                         <th class="center">
@@ -179,11 +185,23 @@
 
                                                         </td>
                                                         <td  class="center">
-                                                            <button class="btn">
-                                                                <i class="ace-icon fa fa-pencil align-top bigger-125"></i>
+                                                            <button class="btn" >
+                                                                <!--                                                                -->
+                                                                <a href="GrammarManage?id=${list.idgrammarguideline}" />
+                                                                <i class="ace-icon fa fa-pencil align-top bigger-125" ></i>
                                                                 Them thong tin 
                                                             </button>
+                                                            </a>
                                                         </td> 
+
+                                                        <td  class="center">
+                                                            <form action="UpdateImageForward?id=${list.idgrammarguideline}" method="post" >
+                                                                <button class="btn">
+                                                                    <i class="ace-icon fa fa-pencil align-top bigger-125"></i>
+                                                                    Cap nhat anh
+                                                                </button>
+                                                            </form>
+                                                        </td>
 
                                                         <td  class="center">
                                                             <form action="DeleteGrammarGuideController?id=${list.idgrammarguideline}" method="post" >
@@ -216,10 +234,10 @@
                     <div class="modal-dialog">
 
                         <!-- Modal content-->
-                        <form action="InsertGrammarGuideController" method="post" >
+                        <form action="InsertGrammarGuideController">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <!--                                    <button type="button" class="close" data-dismiss="modal">&times;</button>-->
+
                                     <h4 class="modal-title">Thêm thông tin bài hướng dẫn</h4>
                                 </div>
 
@@ -518,8 +536,6 @@
                 </script>
 
                 <!-- Modal dung de them thong tin tieu de bai huong dan  -->
-
-
             </div>
     </body>
 </html>

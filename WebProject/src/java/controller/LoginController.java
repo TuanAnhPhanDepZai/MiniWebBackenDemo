@@ -5,6 +5,7 @@
  */
 package controller;
 
+import bean.Member;
 import dao.LoginDao;
 import dbconnector.DBConnector;
 import java.io.IOException;
@@ -54,12 +55,20 @@ public class LoginController extends HttpServlet {
          }
          else if (catMem == 1){ 
              
-             String nameMember = LoginDao.getNameMember(DBConnector.createConnection(), username, password);
+             // String nameMember = LoginDao.getNameMember(DBConnector.createConnection(), username, password);
+             
+             Member member = LoginDao.getMember(DBConnector.createConnection(), username, password);
+             String nameMember = member.getName();
+             String imageMember = member.getMemberImage();
              HttpSession session = request.getSession(true);
-             session.setAttribute("sessionuser",nameMember);
+              session.setAttribute("sessionuser",nameMember);
               request.setAttribute("msgLogin","username");
+              request.setAttribute("imageMember",imageMember );
+              request.setAttribute("idmember", member.getIdmember());
+              request.setAttribute("password", member.getMemberpass());
              RequestDispatcher rd = request.getRequestDispatcher("View/Home.jsp");
              rd.forward(request, response);
+             
          }else if (catMem == 2 ){
              request.setAttribute("msgLogin","admin");
              String nameMember = LoginDao.getNameMember(DBConnector.createConnection(), username, password);

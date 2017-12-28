@@ -64,8 +64,18 @@ public class InsertGrammarGuideController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-          RequestDispatcher requestDispatcher = request.getRequestDispatcher("ListGrammarForward") ;
-         requestDispatcher.forward(request, response);
+        
+        String name  = (String) request.getParameter("name");
+        
+         Connection connection  =dbconnector.DBConnector.createConnection();
+         
+         GrammarGuide grammarGuide = new GrammarGuide(name);
+         boolean isSucess = GrammarGuideDao.insertGrammarGuideName(connection, grammarGuide);
+         RequestDispatcher rd = request.getRequestDispatcher("View/Admin/InsertImageGrammar.jsp");
+            rd.forward(request, response);
+        
+        
+          
     
     }
     /**

@@ -6,6 +6,7 @@
 package dao;
 
 import bean.Member;
+import bean.MemberOpen;
 import bean.SlideBanner;
 import dbconnector.DBConnector;
 import java.sql.Connection;
@@ -76,9 +77,57 @@ public class MemBerDao {
         return isTrue;
     }
 
-     
+    public static MemberOpen getMemmberFromDb(Connection connection ,int idmember){
+        MemberOpen memberOpen = new MemberOpen();
+        String query = "select * from  informember where idinformember = ? " ; 
+         try {
+             PreparedStatement ps = connection.prepareStatement(query);
+             ps.setInt(1, idmember);
+             ResultSet rs  = ps.executeQuery();
+             while(rs.next()){
+                 int id = rs.getInt("idinformember");
+                 String bietdanh = rs.getString("bietdanh");
+                 String gmail = rs.getString("gmail");
+                 String noicongtac = rs.getString("noicongtac");
+                 String nghenghiep  = rs.getString("nghenghiep");
+                 String muctieu = rs.getString("muctieu");
+                 
+                 memberOpen.setIdmember(idmember);
+                 memberOpen.setBietdanh(bietdanh);
+                 memberOpen.setGmail(gmail);
+                 memberOpen.setNoicongtac(noicongtac);
+                 memberOpen.setNghenghiep(nghenghiep);
+                 memberOpen.setMuctieu(muctieu);
+             }
+         } catch (SQLException ex) {
+             
+         }
+        return memberOpen;
+    }
+    
+    public static Member getMemberById(Connection connection, int id){
+        Member member = new Member();
+        String query = "select * from member1 where idmember = ? " ;
+         try {
+             PreparedStatement ps = connection.prepareStatement(query) ;
+             ps.setInt(1, id);
+             ResultSet rs = ps.executeQuery();
+             while(rs.next()){
+                 member.setIdmember(id);
+                 member.setMembername(rs.getString("membername"));
+                 member.setMemberpass(rs.getString("memberpass"));
+                 member.setName(rs.getString("fullname"));
+                 member.setMemberImage(rs.getString("memberimage"));
+             }
+         } catch (SQLException ex) {
+             
+         }
+        
+        return member;
+    }
      public static void main(String[] args) {
         Connection connection = DBConnector.createConnection();
         
+         System.out.println(getMemberById(connection, 1).getMemberImage());
     }
 }

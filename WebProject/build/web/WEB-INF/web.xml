@@ -44,6 +44,34 @@
         <servlet-name>DeleteGrammarGuideController</servlet-name>
         <servlet-class>controller.DeleteGrammarGuideController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UpdateImageForward</servlet-name>
+        <servlet-class>controller.UpdateImageForward</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateImageGrammarController</servlet-name>
+        <servlet-class>controller.UpdateImageGrammarController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>InsertGrammarGuideContentController</servlet-name>
+        <servlet-class>controller.InsertGrammarGuideContentController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DisplayTutorialGrammarController</servlet-name>
+        <servlet-class>controller.DisplayTutorialGrammarController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DisplayTutorialListeningController</servlet-name>
+        <servlet-class>controller.DisplayTutorialListeningController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowDetailTutorialGrammarController</servlet-name>
+        <servlet-class>controller.ShowDetailTutorialGrammarController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>InformationUserController</servlet-name>
+        <servlet-class>controller.InformationUserController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeForward</servlet-name>
         <url-pattern>/HomeForward</url-pattern>
@@ -87,6 +115,34 @@
     <servlet-mapping>
         <servlet-name>DeleteGrammarGuideController</servlet-name>
         <url-pattern>/DeleteGrammarGuideController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateImageForward</servlet-name>
+        <url-pattern>/UpdateImageForward</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateImageGrammarController</servlet-name>
+        <url-pattern>/UpdateImageGrammarController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InsertGrammarGuideContentController</servlet-name>
+        <url-pattern>/InsertGrammarGuideContentController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DisplayTutorialGrammarController</servlet-name>
+        <url-pattern>/DisplayTutorialGrammarController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DisplayTutorialListeningController</servlet-name>
+        <url-pattern>/DisplayTutorialListeningController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowDetailTutorialGrammarController</servlet-name>
+        <url-pattern>/ShowDetailTutorialGrammarController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InformationUserController</servlet-name>
+        <url-pattern>/InformationUserController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

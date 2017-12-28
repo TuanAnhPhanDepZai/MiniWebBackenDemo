@@ -77,6 +77,10 @@ public class InsertImageGrammarGuideController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        if(request.getCharacterEncoding() == null){
+            request.setCharacterEncoding("UTF-8");
+        }
+        
         String path = GrammarGuideDao.uploadFile(request, response);
         
         Connection connection = dbconnector.DBConnector.createConnection();
@@ -104,7 +108,7 @@ public class InsertImageGrammarGuideController extends HttpServlet {
             // response.getWriter().write("sai roi");
         }
         
-        
+      
     }
 
     /**

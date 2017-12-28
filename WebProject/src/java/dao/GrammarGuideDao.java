@@ -76,6 +76,7 @@ public class GrammarGuideDao {
 
     public static String  uploadFile(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String fileName = "";
         String pathToDestinate = "";
         PrintWriter out = response.getWriter();
         boolean isMultipart = ServletFileUpload.isMultipartContent(request);
@@ -87,7 +88,7 @@ public class GrammarGuideDao {
        // final String PATH = "D:\\"  ;
         ServletContext context = request.getServletContext();
 
-        final String PATH = context.getRealPath("/NewImage/");
+        final String PATH = context.getRealPath("/ImageForProject/");
 
         final int MAX_MEMMORY = 1024 * 1024 * 3;   // 3 MB
         final int MAX_SIZE = 1024 * 1024 * 50;
@@ -111,19 +112,17 @@ public class GrammarGuideDao {
 
                 if (!item1.isFormField()) {
 
-                    String fileName = item1.getName();
+                    fileName = item1.getName();
 
                     String pathFile = PATH + File.separator + fileName;
 
                     File uploadedFile = new File(pathFile);
                     
                     boolean checkExist = uploadedFile.exists();
-                    try {
-                       
-                          
+                    try {                         
                             item1.write(uploadedFile);
                             //request.setAttribute("error", "thanh cong");
-                            return pathFile;
+                            return "ImageForProject/" + fileName;
 
                         
                     } catch (Exception ex) {
@@ -140,7 +139,7 @@ public class GrammarGuideDao {
              
         }
 
-     return pathToDestinate;
+       return "ImageForProject/" + fileName;
 
     }
 
@@ -195,11 +194,113 @@ public class GrammarGuideDao {
         }
         return isSuceess;
     }
+    
+    public static boolean updateGrammarGuideContent(Connection connection, GrammarGuide grammarGuide) {
+        boolean isSuceess = false;
+        try {
+            String query = "update grammarguideline set context =  ? where  idgrammarguideline = ? ";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, grammarGuide.getContext());
+            ps.setInt(2, grammarGuide.getIdgrammarguideline());
+            ps.execute();
+            isSuceess = true;
+            ps.close();
+            connection.close();
+        } catch (SQLException ex) {
+            isSuceess = false;
+        }
+        return isSuceess;
+    }
+
+    public static boolean checkValidateGrammarGuide(Connection connection, String grammarName){
+        boolean isTrue = false ; 
+        // kiem tra xem ten do co ton tai hay khong 
+        
+        String query = "select * from grammarguideline where grammarname =  ? " ;
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setString(1, grammarName);
+            ResultSet rs = ps.executeQuery();
+            
+            isTrue = rs.isBeforeFirst() ; 
+            ps.close();
+            connection.close();
+        } catch (SQLException ex) {
+            
+        }  
+        return isTrue;
+    }
+    
+    public static int countGrammarGuide(Connection connection){
+        int count =  0 ; 
+        String query = "select count(idgrammarguideline) from grammarguideline ;" ;
+        try {
+            PreparedStatement ps  = connection.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            
+            while(rs.next()){
+                count = rs.getInt(1);
+            }
+         ps.close();
+         connection.close();
+        } catch (SQLException ex) {
+            count = 0  ; 
+        }
+             
+        return count; 
+    }
+    
+    public static List<GrammarGuide> getGrammarGuideByPage(Connection connection, int pageid, int max){
+        List<GrammarGuide> list = new ArrayList<GrammarGuide>();
+        try {      
+            int start = (pageid-1) * max ;
+            String query = "select * from grammarguideline  limit ?,?; ";
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, start);
+            ps.setInt(2, max);
+            ResultSet rs= ps.executeQuery();
+            
+                  while(rs.next()){  
+                    int idgrammarguideline = rs.getInt("idgrammarguideline");
+                    String grammarname = rs.getString("grammarname");
+                    String grammarimage = rs.getString("grammarimage");
+                    String context = rs.getString("context");
+                    
+                    GrammarGuide grammarGuide = new GrammarGuide(idgrammarguideline, grammarname, grammarimage, context);
+                    list.add(grammarGuide);
+                  }     
+        ps.close();
+        connection.close();
+        } catch (SQLException ex) {
+            
+        }
+        return list ;
+    }
+    
+    public static String getContentGrammarById(Connection connection, int idGrammarGuide){
+        String content = "";
+        String query = "select context from grammarguideline where idgrammarguideline = ? " ;
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, idGrammarGuide);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                content = rs.getString(1);
+            }
+        ps.close();
+        connection.close();
+        } catch (SQLException ex) {
+            
+        }
+        
+        return content;
+    }
+    
     public static void main(String[] args) {
         Connection connection
                 = dbconnector.DBConnector.createConnection();
         
 
-        System.out.println(GrammarGuideDao.deleteGrammarGuide(connection, 1));
+        System.out.println(GrammarGuideDao.getContentGrammarById(connection, 61));
     }
 }

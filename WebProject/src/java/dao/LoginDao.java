@@ -1,6 +1,7 @@
 
 package dao;
 
+import bean.Member;
 import static dao.MemBerDao.checkUserValidate;
 import dbconnector.DBConnector;
 import java.sql.Connection;
@@ -90,16 +91,40 @@ public class LoginDao {
              
           ps.close();
           connection.close();
-         } catch (SQLException ex) {
-          //   request.setAttribute("msgRegister", ex.getMessage());
-            
+         } catch (SQLException ex) {            
          }}
        return nameMember;
     }
     
+    public static Member getMember(Connection connection, String username, String password){
+        Member member = new Member();
+        if(authenicationMember(connection, username, password)){
+       String query ="select * from member1 where membername = ? and memberpass = ? " ; 
+        Connection connection1 = DBConnector.createConnection();
+         try {
+             PreparedStatement ps = connection1.prepareStatement(query);
+             ps.setString(1,username);
+             ps.setString(2, password);
+             ResultSet rs = ps.executeQuery();
+             while(rs.next()){
+                member.setIdmember(rs.getInt("idmember"));
+                member.setMembername(rs.getString("membername"));
+                member.setMemberpass(rs.getString("memberpass"));
+                member.setName(rs.getString("fullname"));
+                member.setMemberImage(rs.getString("memberimage"));
+                member.setCategorymemberid(rs.getInt("catgorymemberid"));
+             }
+             
+          ps.close();
+          connection.close();
+         } catch (SQLException ex) {
+          //   request.setAttribute("msgRegister", ex.getMessage());            
+         }}
+        return member;
+    }
     public static void main(String[] args) {
         Connection connection = DBConnector.createConnection();
         
-        System.out.println(LoginDao.authornicationMember(connection,"admin","1234567" ));
+        System.out.println(LoginDao.getMember(connection, "tuananh", "27121997").getMemberImage());
     }
 }

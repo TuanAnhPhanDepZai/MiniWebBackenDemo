@@ -11,11 +11,12 @@ package bean;
  */
 public class Member {
     
-    
+    private int idmember ;
     private String membername ;
     private String memberpass ;
     private int  categorymemberid ;
     private String name ;
+    private String memberImage ;
 
     public Member( String membername, String memberpass, int  categorymemberid, String name) {
       
@@ -23,6 +24,10 @@ public class Member {
         this.memberpass = memberpass;
         this.categorymemberid = categorymemberid;
         this.name = name;
+    }
+
+    public Member() {
+       
     }
 
 
@@ -56,6 +61,22 @@ public class Member {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getMemberImage() {
+        return memberImage;
+    }
+
+    public void setMemberImage(String memberImage) {
+        this.memberImage = memberImage;
+    }
+
+    public int getIdmember() {
+        return idmember;
+    }
+
+    public void setIdmember(int idmember) {
+        this.idmember = idmember;
     }
     
     
